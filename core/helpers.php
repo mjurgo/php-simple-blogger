@@ -16,6 +16,11 @@ function render(string $name, array $data=[])
     return require("app/views/{$name}.view.php");
 }
 
+function redirect(string $path)
+{
+    header("Location: {$path}");
+}
+
 function dump($var): void
 {
     echo '</br><div 

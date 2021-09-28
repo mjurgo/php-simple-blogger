@@ -21,4 +21,16 @@ class PostController
 
         return view('posts/show', ['post' => $post]);
     }
+
+    public function new()
+    {
+        return view('posts/new');
+    }
+
+    public function create()
+    {
+        Post::create($_POST);
+
+        return redirect('/posts');
+    }
 }
