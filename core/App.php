@@ -10,7 +10,7 @@ class App
 {
     private static array $registry = [];
 
-    public static function get(string $key): int|string|array
+    public static function get(string $key)
     {
         if (!array_key_exists($key, self::$registry))
         {
@@ -20,7 +20,7 @@ class App
         return self::$registry[$key];
     }
 
-    public static function bind(string $key, int|string|array $value): void
+    public static function bind(string $key, $value): void
     {
         static::$registry[$key] = $value;
     }
