@@ -4,10 +4,9 @@ declare(strict_types=1);
 
 return [
     'database' => [
-        'connection' => 'mysql:host=localhost',
-        'name' => 'blogger',
-        'host' => 'localhost',
-        'username' => 'blogger',
-        'password' => 'blogger'
+        'name' => $_ENV['DB_NAME'],
+        'host' => $_ENV['DB_HOST'],
+        'username' => $_ENV['DB_USERNAME'],
+        'password' => $_ENV['DB_PASSWORD']
     ]
 ];
