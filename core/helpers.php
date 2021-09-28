@@ -2,6 +2,20 @@
 
 declare(strict_types=1);
 
+function view(string $name, array $data=[])
+{
+    $view = $name;
+
+    return require('app/views/layout.view.php');
+}
+
+function render(string $name, array $data=[])
+{
+    extract($data);
+
+    return require("app/views/{$name}.view.php");
+}
+
 function dump($var): void
 {
     echo '</br><div 

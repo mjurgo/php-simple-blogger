@@ -44,6 +44,7 @@ class Router
                 {
                     $params = array_slice($matches, 1, count($matches)-1);
                 }
+                $params = $this->castParams($params);
                 $controllerParts = explode('@', $controller);
                 return $this->callController(
                     $controllerParts[0],
@@ -52,9 +53,11 @@ class Router
                 );
             }
         }
+
+        throw new Exception('No route for this url.');
     }
 
-    public function callController($controller, $action, $params=[])
+    private function callController($controller, $action, $params=[])
     {
         $controller = "App\\Controllers\\{$controller}";
         $controller = new $controller;
@@ -72,5 +75,24 @@ class Router
         {
             return $controller->$action();
         }
+    }
+
+    private function castParams(array $params): array
+    {
+        $castedParams = [];
+
+        foreach ($params as $param)
+        {
+            if (is_numeric($param))
+            {
+                $castedParams[] = (int)$param;
+            }
+            else
+            {
+                $castedParams[] = $param;
+            }
+        }
+
+        return $castedParams;
     }
 }

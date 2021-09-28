@@ -8,11 +8,11 @@ class PageController
 {
     public function home()
     {
-        return require('app/views/home.view.php');
+        return view('pages/home');
     }
 
     public function about()
     {
-        return require('app/views/about.view.php');
+        return view('pages/about');
     }
 }
