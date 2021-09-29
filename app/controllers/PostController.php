@@ -33,4 +33,25 @@ class PostController
 
         return redirect('/posts');
     }
+
+    public function edit(int $id)
+    {
+        $post = Post::find($id);
+
+        return view('posts/edit', ['post' => $post]);
+    }
+
+    public function update(int $id)
+    {
+        Post::update($id, $_POST);
+
+        return redirect("/posts/{$id}");
+    }
+
+    public function destroy(int $id)
+    {
+        Post::delete($id);
+
+        return redirect('/posts');
+    }
 }

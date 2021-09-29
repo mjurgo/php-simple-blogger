@@ -64,7 +64,7 @@ abstract class BaseModel
         }
     }
 
-    public static function create($params)
+    public static function create(array $params)
     {
         self::checkTable();
         $table = self::$table;
@@ -85,7 +85,57 @@ abstract class BaseModel
         {
             throw new Exception('Model needs to have allowedProperties array.');
         }
+    }
 
+    public static function update(int $id, array $params)
+    {
+        self::checkTable();
+        $table = self::$table;
+        $obj = new (static::class);
+
+        if ($obj->allowedProperties)
+        {
+            foreach ($params as $param => $value)
+            {
+                if (!in_array($param, $obj->allowedProperties))
+                {
+                    throw new Exception("Forbidden parameter: {$param}.");
+                }
+            }
+            $keys = [];
+            foreach (array_keys($params) as $key)
+            {
+                $keys[] = "{$key} = :{$key}";
+            }
+            $keys = implode(', ', $keys);
+            $sql = "UPDATE {$table} SET {$keys} WHERE id = {$id};";
+            try
+            {
+                $statement = App::get('db')->prepare($sql);
+                $statement->execute($params);
+            }
+            catch (\Throwable $th)
+            {
+                dump($th);
+            }
+        }
+    }
+
+    public static function delete(int $id)
+    {
+        self::checkTable();
+        $table = self::$table;
+        $sql = "DELETE FROM {$table} WHERE id = ? LIMIT 1;";
+        
+        try
+        {
+            $statement = App::get('db')->prepare($sql);
+            $statement->execute([$id]);
+        }
+        catch (\Throwable $th)
+        {
+            dump($th);
+        }
     }
 
     private static function checkTable()

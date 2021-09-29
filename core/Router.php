@@ -18,7 +18,7 @@ class Router
     {
         $this->routes['POST'][$uri] = $controller;
     }
-
+    
     public static function init(string $routesFile): Router
     {
         $router = new static;
