@@ -55,6 +55,11 @@ function escape(array $params): array
     return $clearParams;
 }
 
+function loggedIn()
+{
+    return isset($_SESSION['auth']);
+}
+
 function dump($var): void
 {
     echo '</br><div 

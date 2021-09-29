@@ -10,3 +10,9 @@ $router->post('/posts', 'PostController@create');
 $router->get('/posts/{id}/edit', 'PostController@edit');
 $router->post('/posts/{id}', 'PostController@update');
 $router->post('/posts/{id}/delete', 'PostController@destroy');
+
+$router->get('/register', 'UserController@register');
+$router->post('/users', 'UserController@create');
+$router->get('/login', 'UserController@login');
+$router->post('/login', 'UserController@authenticate');
+$router->post('/logout', 'UserController@logout');

@@ -5,6 +5,8 @@ declare(strict_types=1);
 use App\Core\App;
 use Dotenv\Dotenv;
 
+session_start();
+
 $dotenv = Dotenv::createImmutable(__DIR__ . '/..');
 $dotenv->load();
 

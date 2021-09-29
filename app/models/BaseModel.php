@@ -7,6 +7,7 @@ namespace App\Models;
 use PDO;
 use Exception;
 use App\Core\App;
+use PDOException;
 
 abstract class BaseModel
 {
@@ -43,6 +44,27 @@ abstract class BaseModel
         return $obj;
     }
 
+    public static function findBy(string $column, int|string $value)
+    {
+        self::checkTable();
+        $table = self::$table;
+
+        $value = is_string($value) ? "'{$value}'" : $value;
+        $statement = App::get('db')->prepare(
+            "SELECT * FROM {$table} WHERE {$column} = {$value} LIMIT 1;"
+        );
+        $statement->execute();
+
+        $obj = $statement->fetchObject(static::class);
+
+        if (!$obj)
+        {
+            throw new Exception('Object not found.');
+        }
+
+        return $obj;
+    }
+
     public static function insert(array $params)
     {
         self::checkTable();
@@ -52,15 +74,14 @@ abstract class BaseModel
         $columns = implode(', ', $attributes);
         $parameters = ':' . implode(', :', $attributes);;
         $sql = "INSERT INTO {$table} ({$columns}) VALUES ({$parameters});";
-
         try
         {
             $statement = App::get('db')->prepare($sql);
             $statement->execute($params);
         }
-        catch (\Throwable $th)
+        catch (PDOException $e)
         {
-            dump($th);
+            dd($e);
         }
     }
 
