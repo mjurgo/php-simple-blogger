@@ -45,7 +45,6 @@ class UserController
     {
         unset($_SESSION['auth']);
         unset($_SESSION['username']);
-        unset($_SESSION['id']);
         return redirect('/');
     }
 

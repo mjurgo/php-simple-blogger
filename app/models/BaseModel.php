@@ -15,8 +15,7 @@ abstract class BaseModel
 
     public static function all(): array
     {
-        self::checkTable();
-        $table = self::$table;
+       $table =  static::checkTable();
         
         $statement = App::get('db')->prepare("SELECT * FROM {$table};");
         $statement->execute();
@@ -26,8 +25,7 @@ abstract class BaseModel
 
     public static function find(int $id)
     {
-        self::checkTable();
-        $table = self::$table;
+        $table = static::checkTable();
 
         $statement = App::get('db')->prepare(
             "SELECT * FROM {$table} WHERE id = {$id} LIMIT 1;"
@@ -46,8 +44,7 @@ abstract class BaseModel
 
     public static function findBy(string $column, int|string $value)
     {
-        self::checkTable();
-        $table = self::$table;
+        $table = static::checkTable();
 
         $value = is_string($value) ? "'{$value}'" : $value;
         $statement = App::get('db')->prepare(
@@ -65,10 +62,22 @@ abstract class BaseModel
         return $obj;
     }
 
+    public static function findAllBy(string $column, int|string $value): array
+    {
+        $table = static::checkTable();
+
+        $value = is_string($value) ? "'{$value}'" : $value;
+        $statement = App::get('db')->prepare(
+            "SELECT * FROM {$table} WHERE {$column} = {$value};"
+        );
+        $statement->execute();
+
+        return $statement->fetchAll(PDO::FETCH_CLASS, static::class);
+    }
+
     public static function insert(array $params)
     {
-        self::checkTable();
-        $table = self::$table;
+        $table = static::checkTable();
 
         $attributes = array_keys($params);
         $columns = implode(', ', $attributes);
@@ -87,8 +96,7 @@ abstract class BaseModel
 
     public static function create(array $params)
     {
-        self::checkTable();
-        $table = self::$table;
+        $table = static::checkTable();
         $obj = new (static::class);
 
         if ($obj->allowedProperties)
@@ -110,8 +118,7 @@ abstract class BaseModel
 
     public static function update(int $id, array $params)
     {
-        self::checkTable();
-        $table = self::$table;
+        $table = static::checkTable();
         $obj = new (static::class);
 
         if ($obj->allowedProperties)
@@ -144,8 +151,7 @@ abstract class BaseModel
 
     public static function delete(int $id)
     {
-        self::checkTable();
-        $table = self::$table;
+        $table = static::checkTable();
         $sql = "DELETE FROM {$table} WHERE id = ? LIMIT 1;";
         
         try
@@ -161,13 +167,18 @@ abstract class BaseModel
 
     private static function checkTable()
     {
-        if (!isset(self::$table) || self::$table == '')
-        {
-            self::$table = str_replace(
-                'app\\models\\',
-                '',
-                strtolower(static::class) . 's'
-            );
-        }
+        return isset(static::$table) ? static::$table : str_replace(
+            'app\\models\\',
+            '',
+            strtolower(static::class) . 's'
+        );
+        // if (!isset(static::$table) || static::$table == '')
+        // {
+        //     static::$table = str_replace(
+        //         'app\\models\\',
+        //         '',
+        //         strtolower(static::class) . 's'
+        //     );
+        // }
     }
 }

@@ -16,3 +16,5 @@ $router->post('/users', 'UserController@create');
 $router->get('/login', 'UserController@login');
 $router->post('/login', 'UserController@authenticate');
 $router->post('/logout', 'UserController@logout');
+
+$router->post('/posts/{id}/comment', 'CommentController@create');

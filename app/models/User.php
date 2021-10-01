@@ -16,7 +16,6 @@ class User extends BaseModel
         {
             $_SESSION['auth'] = true;
             $_SESSION['username'] = $user->username;
-            $_SESSION['id'] = $user->id;
         }
         else
         {

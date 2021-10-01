@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Controllers;
 
 use App\Models\Post;
+use App\Models\Comment;
 
 class PostController
 {
@@ -18,8 +19,10 @@ class PostController
     public function show(int $id)
     {
         $post = Post::find($id);
+        // Zoptymalizować, żeby pobierało od razu użytkowników - with z laravela
+        $comments = Comment::findAllBy('post_id', $id);
 
-        return view('posts/show', ['post' => $post]);
+        return view('posts/show', ['post' => $post, 'comments' => $comments]);
     }
 
     public function new()
