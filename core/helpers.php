@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+use App\Core\Auth;
+
 function view(string $name, array $data=[])
 {
     $view = $name;
@@ -17,9 +19,28 @@ function render(string $name, array $data=[])
     return require("app/views/{$name}.view.php");
 }
 
-function redirect(string $path)
+function redirect(string $path, string $message='')
 {
+    if ($message)
+    {
+        $_SESSION['flash_message'] = $message;
+    }
+
     header("Location: {$path}");
+    exit();
+}
+
+function get_flash_message(): string
+    {
+        $msg = $_SESSION['flash_message'];
+        unset($_SESSION['flash_message']);
+        
+        return $msg;
+    }
+
+function flash_message(): bool
+{
+    return isset($_SESSION['flash_message']);
 }
 
 function escape(array $params): array
@@ -58,6 +79,11 @@ function escape(array $params): array
 function loggedIn()
 {
     return isset($_SESSION['auth']);
+}
+
+function isAdmin()
+{
+    return Auth::isAdmin();
 }
 
 function dump($var): void

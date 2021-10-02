@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Controllers;
 
+use App\Core\Auth;
 use App\Models\User;
 
 class UserController
@@ -50,7 +51,7 @@ class UserController
 
     public function authenticate()
     {
-        User::auth($_POST['login'], $_POST['password']);
+        Auth::auth($_POST['login'], $_POST['password']);
 
         return redirect('/');
     }

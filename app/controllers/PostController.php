@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Controllers;
 
+use App\Core\Auth;
 use App\Models\Post;
 use App\Models\Comment;
 
@@ -27,11 +28,13 @@ class PostController
 
     public function new()
     {
+        Auth::requireAdmin();
         return view('posts/new');
     }
 
     public function create()
     {
+        Auth::requireAdmin();
         Post::create($_POST);
 
         return redirect('/posts');
@@ -39,6 +42,7 @@ class PostController
 
     public function edit(int $id)
     {
+        Auth::requireAdmin();
         $post = Post::find($id);
 
         return view('posts/edit', ['post' => $post]);
@@ -46,6 +50,7 @@ class PostController
 
     public function update(int $id)
     {
+        Auth::requireAdmin();
         Post::update($id, $_POST);
 
         return redirect("/posts/{$id}");
@@ -53,6 +58,7 @@ class PostController
 
     public function destroy(int $id)
     {
+        Auth::requireAdmin();
         Post::delete($id);
 
         return redirect('/posts');

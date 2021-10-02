@@ -18,6 +18,11 @@
         <?php endif; ?>
     </div>
     <div class="container">
+        <?php if (flash_message()) : ?>
+            <div class="flash-message">
+                <p><?= get_flash_message() ?></p>
+            </div>
+        <?php endif; ?>
         <div class="content">
             <?php render($view, $data) ?>
         </div>
