@@ -55,4 +55,14 @@ class UserController
 
         return redirect('/');
     }
+
+    public function destroy(int $id)
+    {
+        Auth::requireLogin();
+        Auth::requireAdmin();
+
+        User::delete($id);
+
+        return redirect('/admin');
+    }
 }

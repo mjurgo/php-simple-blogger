@@ -20,7 +20,7 @@ class PostController
     public function show(int $id)
     {
         $post = Post::find($id);
-        // Zoptymalizować, żeby pobierało od razu użytkowników - with z laravela
+        // TODO: Zoptymalizować, żeby pobierało od razu użytkowników - with z laravela
         $comments = Comment::findAllBy('post_id', $id);
 
         return view('posts/show', ['post' => $post, 'comments' => $comments]);

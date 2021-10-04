@@ -2,7 +2,7 @@
 <?php if (isAdmin()) : ?>
     <a href=<?= "/posts/{$post->id}/edit" ?>>Edytuj</a>
     <form action="/posts/<?= $post->id ?>/delete" method="post">
-        <input type="submit" value="Delete">
+        <input type="submit" value="Usuń">
     </form>
 <?php endif; ?>
 <p><?= $post->body ?></p>

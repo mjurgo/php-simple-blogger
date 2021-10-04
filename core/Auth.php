@@ -17,7 +17,15 @@ class Auth
     {
         if (!self::isAdmin())
         {
-            redirect('/', 'You must be an admin to access this page.');
+            redirect('/', 'Nie masz dostępu do tej strony.');
+        }
+    }
+
+    public static function requireLogin(): void
+    {
+        if (!loggedIn())
+        {
+            redirect('/login', 'Musisz być zalogowany, żeby wyświetlić tę stronę.');
         }
     }
 

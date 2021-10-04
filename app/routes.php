@@ -16,5 +16,10 @@ $router->post('/users', 'UserController@create');
 $router->get('/login', 'UserController@login');
 $router->post('/login', 'UserController@authenticate');
 $router->post('/logout', 'UserController@logout');
+$router->post('/users/{id}/delete', 'UserController@destroy');
 
 $router->post('/posts/{id}/comment', 'CommentController@create');
+
+$router->get('/admin', 'AdminController@admin');
+$router->get('/admin/posts', 'AdminController@posts');
+$router->get('/admin/users', 'AdminController@users');
