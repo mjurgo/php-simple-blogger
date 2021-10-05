@@ -28,6 +28,7 @@ class UserController extends BaseController
         ];
 
         User::create($userParams);
+        $this->authenticate();
 
         return redirect('/');
     }
@@ -52,7 +53,7 @@ class UserController extends BaseController
     public function authenticate()
     {
         Auth::auth(
-            $this->requqest->post('login'),
+            $this->request->post('login'),
             $this->request->post('password')
         );
 
