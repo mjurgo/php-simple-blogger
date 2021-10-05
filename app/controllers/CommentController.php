@@ -7,7 +7,7 @@ namespace App\Controllers;
 use App\Models\Comment;
 use App\Models\User;
 
-class CommentController
+class CommentController extends BaseController
 {
     public function create(int $postId)
     {
@@ -21,7 +21,7 @@ class CommentController
         $attrs = [
             'post_id' => $postId,
             'user_id' => $user->id,
-            'body' => $_POST['body'],
+            'body' => $this->request->post('body'),
         ];
         Comment::create($attrs);
 

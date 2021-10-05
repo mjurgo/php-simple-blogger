@@ -11,8 +11,8 @@ Made just for practice.
 - Implement something like "with" method from Laravel.
 
 ## Things to consider:
-- Creating Request class - but it would be useless at the moment.
-- Creating BaseController - would be useless at the moment.
+- ~~Creating Request class - but it would be useless at the moment.~~
+- ~~Creating BaseController - would be useless at the moment.~~
 - Creating View class.
 - Add 'blocked' to user so that it's possible to ban them.
 

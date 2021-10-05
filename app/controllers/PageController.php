@@ -4,9 +4,7 @@ declare(strict_types=1);
 
 namespace App\Controllers;
 
-use App\Models\User;
-
-class PageController
+class PageController extends BaseController
 {
     public function home()
     {

@@ -8,7 +8,7 @@ use App\Core\Auth;
 use App\Models\Post;
 use App\Models\User;
 
-class AdminController
+class AdminController extends BaseController
 {
     public function admin()
     {

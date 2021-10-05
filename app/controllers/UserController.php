@@ -7,7 +7,7 @@ namespace App\Controllers;
 use App\Core\Auth;
 use App\Models\User;
 
-class UserController
+class UserController extends BaseController
 {
     public function register()
     {
@@ -22,9 +22,9 @@ class UserController
     public function create()
     {
         $userParams = [
-            'login' => $_POST['login'],
-            'password' => password_hash($_POST['password'], PASSWORD_BCRYPT),
-            'username' => $_POST['username'],
+            'login' => $this->request->post('login'),
+            'password' => password_hash($this->request->post('password'), PASSWORD_BCRYPT),
+            'username' => $this->request->post('username'),
         ];
 
         User::create($userParams);
@@ -51,7 +51,10 @@ class UserController
 
     public function authenticate()
     {
-        Auth::auth($_POST['login'], $_POST['password']);
+        Auth::auth(
+            $this->requqest->post('login'),
+            $this->request->post('password')
+        );
 
         return redirect('/');
     }

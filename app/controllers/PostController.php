@@ -8,22 +8,21 @@ use App\Core\Auth;
 use App\Models\Post;
 use App\Models\Comment;
 
-class PostController
+class PostController extends BaseController
 {
     public function index()
     {
-        $posts = Post::all();
-
-        return view('posts/index', ['posts' => $posts]);
+        return view('posts/index', ['posts' => Post::all()]);
     }
 
     public function show(int $id)
     {
-        $post = Post::find($id);
         // TODO: Zoptymalizować, żeby pobierało od razu użytkowników - with z laravela
-        $comments = Comment::findAllBy('post_id', $id);
 
-        return view('posts/show', ['post' => $post, 'comments' => $comments]);
+        return view('posts/show', [
+            'post' => Post::find($id),
+            'comments' => Comment::findAllBy('post_id', $id)
+        ]);
     }
 
     public function new()
@@ -35,7 +34,7 @@ class PostController
     public function create()
     {
         Auth::requireAdmin();
-        Post::create($_POST);
+        Post::create($this->request->post());
 
         return redirect('/posts');
     }
@@ -43,15 +42,14 @@ class PostController
     public function edit(int $id)
     {
         Auth::requireAdmin();
-        $post = Post::find($id);
 
-        return view('posts/edit', ['post' => $post]);
+        return view('posts/edit', ['post' => Post::find($id)]);
     }
 
     public function update(int $id)
     {
         Auth::requireAdmin();
-        Post::update($id, $_POST);
+        Post::update($id, $this->request->post());
 
         return redirect("/posts/{$id}");
     }
