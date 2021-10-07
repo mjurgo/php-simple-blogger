@@ -3,7 +3,7 @@
 Made just for practice.
 
 ## Current agenda:
-- 
+- Add 'previousAction' for some redirects.
 
 ## Things to refactor:
 - BaseModel - separate some code, move it into own classes (QueryBuilder) or methods.
@@ -19,10 +19,10 @@ Made just for practice.
 ## Things to definitely do:
 - Add some styling with Bulma css.
 - Add 'previousAction' for some redirects.
-- Add 'created_at' to posts and comments.
+- ~~Add 'created_at' to posts and comments.~~
 - User profile and editing information.
 - Unit tests.
-- Log user in after registering.
+- ~~Log user in after registering.~~
 - Add 'last' method to BaseModel.
 - Add static pages functionality.
 - Tinymce for blog posts/pages.
