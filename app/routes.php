@@ -15,6 +15,8 @@ $router->get('/register', 'UserController@register');
 $router->post('/users', 'UserController@create');
 $router->get('/login', 'UserController@login');
 $router->post('/login', 'UserController@authenticate');
+$router->get('/users/{id}', 'UserController@show');
+$router->post('/users/{id}', 'UserController@update');
 $router->post('/logout', 'UserController@logout');
 $router->post('/users/{id}/delete', 'UserController@destroy');
 

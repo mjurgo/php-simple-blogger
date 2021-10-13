@@ -5,12 +5,13 @@ declare(strict_types=1);
 namespace App\Core;
 
 use App\Models\User;
+use Exception;
 
 class Auth
 {
     public static function isAdmin(): bool
     {
-        return isset($_SESSION['username']) ? User::findBy('username', $_SESSION['username'])->role === 'admin' : false;
+        return isset($_SESSION['id']) ? User::find((int)$_SESSION['id'])->role === 'admin' : false;
     }
 
     public static function requireAdmin(): void
@@ -29,18 +30,40 @@ class Auth
         }
     }
 
-    public static function auth(string $login, string $password): void
+    public static function requireCurrentUser(int $id): void
     {
-        $user = User::findBy('login', $login);
+        if (!((int)self::user()->id == $id))
+        {
+            redirect('/', 'Nie masz dostępu do tej strony.');
+        }
+    }
+
+    public static function auth(string $login, string $password): bool
+    {
+        try
+        {
+            $user = User::findBy('login', $login);
+        }
+        catch (Exception $e)
+        {
+            dump('nie ma takiego użytkownika');
+        }
 
         if (password_verify($password, $user->password))
         {
             $_SESSION['auth'] = true;
-            $_SESSION['username'] = $user->username;
+            $_SESSION['id'] = $user->id;
+            return true;
         }
         else
         {
             dump('no niestety, błędne dane');
+            return false;
         }
+    }
+
+    public static function user()
+    {
+        return User::find((int)$_SESSION['id']) ?? null;
     }
 }

@@ -86,6 +86,11 @@ function isAdmin()
     return Auth::isAdmin();
 }
 
+function currentUser()
+{
+    return Auth::user();
+}
+
 function dump($var): void
 {
     echo '</br><div 

@@ -6,9 +6,17 @@ namespace App\Controllers;
 
 use App\Core\Auth;
 use App\Models\User;
+use Exception;
 
 class UserController extends BaseController
 {
+    public function show(int $id)
+    {
+        Auth::requireCurrentUser($id);
+
+        return view('users/show', ['user' => User::find($id)]);
+    }
+
     public function register()
     {
         if (loggedIn())
@@ -33,6 +41,33 @@ class UserController extends BaseController
         return redirect('/');
     }
 
+    public function update(int $id)
+    {
+        $updateParams = [
+            'username' => $this->request->post('username'),
+            'login' => $this->request->post('login'),
+        ];
+
+        if ($this->request->post('password'))
+        {
+            if (password_verify(
+                $this->request->post('current_password'), Auth::user()->password)
+            )
+                $updateParams['password'] = password_hash(
+                    $this->request->post('password'),
+                    PASSWORD_BCRYPT
+                );
+            else
+            {
+                throw new Exception('Could not verify current password.');
+            }
+        }
+        
+        User::update($id, $updateParams);
+
+        return redirect("/users/{$id}");
+    }
+
     public function login()
     {
         if (loggedIn())
@@ -46,18 +81,21 @@ class UserController extends BaseController
     public function logout()
     {
         unset($_SESSION['auth']);
-        unset($_SESSION['username']);
+        unset($_SESSION['id']);
         return redirect('/');
     }
 
     public function authenticate()
     {
-        Auth::auth(
+        if (Auth::auth(
             $this->request->post('login'),
             $this->request->post('password')
-        );
+        ))
+        {
+            return redirect('/', 'Zalogowano.');
+        }
 
-        return redirect('/');
+        return redirect('/login', 'Błędne dane.');
     }
 
     public function destroy(int $id)

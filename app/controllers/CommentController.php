@@ -17,7 +17,7 @@ class CommentController extends BaseController
         }
 
         // dump($_POST);
-        $user = User::findBy('username', $_SESSION['username']);
+        $user = User::find((int)$_SESSION['id']);
         $attrs = [
             'post_id' => $postId,
             'user_id' => $user->id,

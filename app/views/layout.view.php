@@ -8,13 +8,16 @@
         <a href="/">Start</a>
         <a href="/about">About</a>
         <a href="/posts">Posty</a>
-        <?php if (isAdmin()) : ?>
+        <?php
+
+if (isAdmin()) : ?>
             <a href="/admin">Panel</a>
         <?php endif; ?>
         <?php if (!loggedIn()) : ?>
             <a href="/login">Zaloguj się</a>
             <a href="/register">Zarejestruj się</a>
         <?php else : ?>
+            <a href="/users/<?= currentUser()->id ?>">Profil</a>
             <form action="/logout" method="post">
                 <input type="submit" value="Wyloguj się">
             </form>
