@@ -10,7 +10,7 @@
             <a href="/posts/<?= $post->id ?>"><?= $post->title ?></a>
             | <a href="/posts/<?= $post->id ?>/edit">Edytuj</a>
             <form action="/posts/<?= $post->id ?>/delete" method="post">
-                <input type="submit" value="Usuń">
+                <input class="button is-danger" type="submit" value="Usuń">
             </form>
         </li>
     <?php endforeach; ?>

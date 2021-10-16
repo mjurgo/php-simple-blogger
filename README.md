@@ -3,7 +3,7 @@
 Made just for practice.
 
 ## Current agenda:
-- User profile and editing information.
+- Add static pages functionality.
 
 ## Things to refactor:
 - BaseModel - separate some code, move it into own classes (QueryBuilder) or methods.
@@ -17,10 +17,10 @@ Made just for practice.
 - Add 'blocked' to user so that it's possible to ban them.
 
 ## Things to definitely do:
-- Add some styling with Bulma css.
+- ~~Add some styling with Bulma css.~~
 - Add 'previousAction' for some redirects.
 - ~~Add 'created_at' to posts and comments.~~
-- User profile and editing information.
+- ~~User profile and editing information.~~
 - Unit tests.
 - ~~Log user in after registering.~~
 - Add 'last' method to BaseModel.

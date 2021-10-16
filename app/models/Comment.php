@@ -10,7 +10,11 @@ class Comment extends BaseModel
 
     public function author()
     {
-        // Do zoptymalizowania
         return User::find((int)$this->user_id);
+    }
+
+    public function post()
+    {
+        return Post::find((int)$this->post_id);
     }
 }

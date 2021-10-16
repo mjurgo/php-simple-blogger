@@ -12,6 +12,7 @@ class UserController extends BaseController
 {
     public function show(int $id)
     {
+        Auth::requireLogin();
         Auth::requireCurrentUser($id);
 
         return view('users/show', ['user' => User::find($id)]);

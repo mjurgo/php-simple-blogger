@@ -1,19 +1,19 @@
 <h1>Nowy post</h1>
 <form action="/posts" method="post">
-    <div class="input">
+    <div class="field">
         <label for="title">Tytuł</label>
-        <input type="text" name="title">
+        <input class="input" type="text" name="title">
     </div>
-    <div class="input">
-        <textarea name="body" cols="30" rows="10"></textarea>
+    <div class="field">
+        <textarea class="textarea" name="body" cols="30" rows="10"></textarea>
     </div>
-    <div class="input">
+    <div class="field">
         <label for="title">Meta title</label>
-        <input type="text" name="meta_title">
+        <input class="input" type="text" name="meta_title">
     </div>
-    <div class="input">
+    <div class="field">
         <label for="title">Meta description</label>
-        <input type="text" name="meta_description">
+        <input class="input" type="text" name="meta_description">
     </div>
-    <input type="submit" value="Utwórz">
+    <input class="button is-link" type="submit" value="Utwórz">
 </form>
