@@ -32,3 +32,4 @@ $router->post('/posts/{id}/comment', 'CommentController@create');
 $router->get('/admin', 'AdminController@admin');
 $router->get('/admin/posts', 'AdminController@posts');
 $router->get('/admin/users', 'AdminController@users');
+$router->get('/admin/pages', 'AdminController@pages');
