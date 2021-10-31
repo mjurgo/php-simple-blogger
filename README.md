@@ -3,7 +3,7 @@
 Made just for practice.
 
 ## Current agenda:
-- Add static pages functionality.
+-  
 
 ## Things to refactor:
 - BaseModel - separate some code, move it into own classes (QueryBuilder) or methods.
@@ -24,6 +24,6 @@ Made just for practice.
 - Unit tests.
 - ~~Log user in after registering.~~
 - Add 'last' method to BaseModel.
-- Add static pages functionality.
+- ~~Add static pages functionality.~~
 - Tinymce for blog posts/pages.
 - Handle errors.

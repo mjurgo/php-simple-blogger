@@ -3,6 +3,13 @@
 $router->get('/', 'PageController@home');
 $router->get('/about', 'PageController@about');
 
+$router->get('/pages/new', 'PageController@new');
+$router->post('/pages', 'PageController@create');
+$router->get('/pages/{id}', 'PageController@show');
+$router->get('/pages/{id}/edit', 'PageController@edit');
+$router->post('/pages/{id}', 'PageController@update');
+$router->post('/pages/{id}/delete', 'PageController@destroy');
+
 $router->get('/posts', 'PostController@index');
 $router->get('/posts/{id}', 'PostController@show');
 $router->get('/posts/new', 'PostController@new');
